@@ -4,10 +4,11 @@ import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
 import styles from './ImageGallery.module.css';
 import LoadMoreButton from './LoadMoreButton/LoadMoreButton';
 import PropTypes from 'prop-types';
-
+import ReactPaginate from 'react-paginate';
 class ImageGallery extends Component {
   state = {
     pictures: [],
+    totalPages: 0,
   };
 
   componentDidMount() {
@@ -49,6 +50,7 @@ class ImageGallery extends Component {
       .then(resp =>
         this.setState(({ pictures }) => ({
           pictures: [...pictures, ...resp.hits],
+          totalPages: Math.round(resp.totalHits / 12),
         })),
       )
       .finally(() => this.props.ToggleLoader());
@@ -58,10 +60,12 @@ class ImageGallery extends Component {
     }
     ToggleFound();
   };
-  test = event => {
+
+  test = data => {
+    // console.log(data);
     this.setState({ pictures: [] });
 
-    this.props.SetPageNumber(event.target.textContent);
+    this.props.SetPageNumber(data.selected);
   };
   render() {
     return (
@@ -83,7 +87,23 @@ class ImageGallery extends Component {
             HandleLoadMoreButton={this.props.HandleLoadMoreButton}
           />
         )}
-        <button onClick={this.test} type="button">
+        <div>
+          <ReactPaginate
+            pageCount={this.state.totalPages}
+            previousLabel={'previous'}
+            nextLabel={'next'}
+            breakLabel={'...'}
+            breakClassName={'break-me'}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.test}
+            containerClassName={styles.pagination}
+            subContainerClassName={'pages pagination'}
+            activeClassName={'active'}
+          />
+        </div>
+
+        {/* <button onClick={this.test} type="button">
           1
         </button>
         <button onClick={this.test} type="button">
@@ -91,7 +111,7 @@ class ImageGallery extends Component {
         </button>
         <button onClick={this.test} type="button">
           3
-        </button>
+        </button> */}
       </>
     );
   }
