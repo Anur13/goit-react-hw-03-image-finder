@@ -16,6 +16,7 @@ class App extends Component {
     galleryPresent: false,
     nothingFound: false,
   };
+
   ToggleModal = () => {
     this.setState(prevState => {
       return { showModal: !prevState.showModal };
@@ -59,7 +60,10 @@ class App extends Component {
           />
         )}
 
-        <SearchBar HandleQueryInput={this.HandleQueryInput} />
+        <SearchBar
+          SetPageNumber={this.SetPageNumber}
+          HandleQueryInput={this.HandleQueryInput}
+        />
         {this.state.query.length > 0 && (
           <ImageGallery
             ToggleFound={this.ToggleFound}

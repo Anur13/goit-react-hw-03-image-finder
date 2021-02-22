@@ -24,6 +24,13 @@ class ImageGallery extends Component {
     if (this.props.query === '') {
       this.setState({ pictures: [] });
     }
+
+    if (prevState !== this.state) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
   }
   componentWillUnmount() {
     this.props.ToggleGalleryState(false);

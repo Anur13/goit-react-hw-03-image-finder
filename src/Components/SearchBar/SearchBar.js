@@ -9,6 +9,7 @@ class SearchBar extends Component {
   HandleSubmit = event => {
     event.preventDefault();
     this.props.HandleQueryInput(this.state.query);
+    this.props.SetPageNumber(1);
   };
 
   HandleInputChange = event => {
