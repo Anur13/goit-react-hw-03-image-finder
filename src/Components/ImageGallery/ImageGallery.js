@@ -62,10 +62,8 @@ class ImageGallery extends Component {
   };
 
   test = data => {
-    // console.log(data);
     this.setState({ pictures: [] });
-
-    this.props.SetPageNumber(data.selected);
+    this.props.SetPageNumber(data.selected + 1);
   };
   render() {
     return (
@@ -102,16 +100,6 @@ class ImageGallery extends Component {
             activeClassName={'active'}
           />
         </div>
-
-        {/* <button onClick={this.test} type="button">
-          1
-        </button>
-        <button onClick={this.test} type="button">
-          2
-        </button>
-        <button onClick={this.test} type="button">
-          3
-        </button> */}
       </>
     );
   }
